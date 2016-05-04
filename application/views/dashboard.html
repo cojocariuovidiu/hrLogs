@@ -1,0 +1,29 @@
+<div class="jumbotron">
+      <div class="container">
+      	<!-- <div ui-grid="{ data: myData }" class="myGrid"></div> -->
+      	<table class="table table-responsive">
+      		<thead>
+      			<tr>
+      				<td>Group</td>
+      				<td>Action</td>
+      				<td>Id</td>
+      				<td>Quantity</td>
+      				<td>Price</td>
+					<td>Market Val</td>
+					<td>PL</td>
+      			</tr>
+      		</thead>
+      		<tbody>
+      			<tr ng-repeat="data in myData">
+      				<td>{{data.Symbol}}</td>
+      				<td>{{data.Action}}</td>
+      				<td>{{data.TxnId}}</td>
+      				<td>{{data.Quantity}}</td>
+      				<td>{{data.Price}}</td>
+      				<td>{{data.MarketValue}}</td>
+      				<td>{{data.pl}}</td>			
+      			</tr>
+      		</tbody>
+      	</table>        
+      </div>
+</div>

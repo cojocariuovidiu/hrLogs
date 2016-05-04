@@ -32,6 +32,7 @@ app.get('/employees.json', employee.getAllEmployees);
 // app.post('/employees', employee.addEmployee);
 // app.put('/employees/:id', employee.updateEmployee);
 app.delete('/employees/:id', employee.deleteEmployee);
+app.post('/createEmployees', employee.populateDB);
 
 app.listen(3000);
 console.log('Listening on port 3000...');

@@ -5,7 +5,7 @@ angular.module("researchApp")
 		$scope.gridOptions = {
 		    columnDefs: [
 				{ field: '_id', visible: false, displayName: 'ID' },
-				{ field: 'id', displayName: 'Emp ID' },
+				{ field: 'emp_id', displayName: 'Emp ID' },
 				{ field: 'First Name', displayName: 'First name' },
 				{ field: 'Last Name', displayName: 'Last name' },
 				{ field: 'Manager Name', displayName: 'Manager name' },
@@ -50,10 +50,19 @@ angular.module("researchApp")
 		
 		$scope.deleteSelected = function(){
 	      angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
-	      	console.log(data);
-	        $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+	      	$http.delete("http://localhost:3000/employees/"+data._id).then(function(response){
+	      		if(response.data.isSuccess){
+	      			console.log(response.data.recordsDeleted+" employees deleted");
+	      			$scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+	      		}
+	      		else{
+	      			console.log("Couldn't find the record or something went wrong");
+	      		}
+	      	})	        
 	      });
 	    }
+
+
 		var dataPromise = $http.get("http://localhost:3000/employees.json");
 		dataPromise.then(function(response){
 			$scope.gridOptions.data = response.data;

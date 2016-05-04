@@ -34,13 +34,20 @@ exports.deleteEmployee = function(req, res) {
     db.collection('employees', function(err, collection) {
         collection.remove({'_id':new BSON.ObjectID(id)}, {safe:true}, function(err, result) {
             if (err) {
-                res.send({'error':'An error has occurred - ' + err});
+                res.json({
+                    isSuccess: false,                    
+                })
             } else {
-                console.log('' + result + ' document(s) deleted');
-                res.send(req.body);
+                res.json({
+                    isSuccess:true,
+                    recordsDeleted: result
+                })                
             }
         });
     });
+}
+exports.populateDB = function(req, res){
+    populateDB();
 }
 
 var populateDB = function() {

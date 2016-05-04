@@ -13,6 +13,7 @@ Employee record management using MEAN stack
 
 
 Sample Data Generation - Use a sublime FakeDataGenerator plugin to generate fake data using following code
+		
 		{
             "id":{{index()}},
             "First Name": "{{first_name()}}",
@@ -23,7 +24,26 @@ Sample Data Generation - Use a sublime FakeDataGenerator plugin to generate fake
             "Work Experience": {{random_int(min=1, max=15)}}
         }
 
+Clone from github URL https://github.com/vamshi4001/hrLogs.git to hrLogs folder on your machine
+```
+cd hrLogs/
+	cd node/
+		npm install
+		node server.js
+			This should get the services up and running
+			API Endpoints
+				GET http://localhost:3000/employees	gives us all employees
+				DELETE http://localhost:3000/employees/:id deletes an employee with provided id
 
-API Endpoints
-	GET http://localhost:3000/employees	gives us all employees
-	DELETE http://localhost:3000/employees/:id deletes an employee with provided id
+	cd application/
+		npm install
+		gulp
+			this should get the server up and running on http://localhost:8000/
+			however if it says, that gulp should be installed globally - then execute following command
+			npm install -g gulp
+
+```
+
+
+
+

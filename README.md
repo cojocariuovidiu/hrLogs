@@ -38,7 +38,7 @@ cd hrLogs/
 	cd application/
 		npm install
 		gulp
-			this should get the server up and running on http://localhost:8000/
+			this should get the server up and running on http://localhost:8000/#/home
 			however if it says, that gulp should be installed globally - then execute following command
 			npm install -g gulp
 

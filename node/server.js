@@ -27,11 +27,11 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/employees.json', employee.findAll);
+app.get('/employees.json', employee.getAllEmployees);
 // app.get('/employees/:id', employee.findById);
 // app.post('/employees', employee.addEmployee);
 // app.put('/employees/:id', employee.updateEmployee);
-// app.delete('/employees/:id', employee.deleteEmployee);
+app.delete('/employees/:id', employee.deleteEmployee);
 
 app.listen(3000);
 console.log('Listening on port 3000...');

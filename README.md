@@ -11,3 +11,19 @@ Employee record management using MEAN stack
 * User can delete the selected record(s).
 * Make sure your code runs after download to the computer with only change in the monogodb connection url.
 
+
+Sample Data Generation - Use a sublime FakeDataGenerator plugin to generate fake data using following code
+		{
+            "id":{{index()}},
+            "First Name": "{{first_name()}}",
+            "Last Name": "{{last_name()}}",
+            "Manager Name": "{{name()}}",
+            "Date of joining": "{{date(pattern='%m-%d-%Y')}}",
+            "Education": "Masters",
+            "Work Experience": {{random_int(min=1, max=15)}}
+        }
+
+
+API Endpoints
+	GET http://localhost:3000/employees	gives us all employees
+	DELETE http://localhost:3000/employees/:id deletes an employee with provided id

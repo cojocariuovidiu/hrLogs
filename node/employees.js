@@ -21,11 +21,21 @@ db.open(function(err, db) {
 });
 
 exports.getAllEmployees = function(req, res) {
-    db.collection('employees', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            res.send(items);
+    var headers = req.header('X-access-token');
+    if(headers =="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0MTE5MjcyMDAzNjl9.cuUKFKsf2qhQJHToP-zBmObhMwi84rhnrhH03OdyzSA"){
+        console.log("Headers matched");
+        db.collection('employees', function(err, collection) {
+            collection.find().toArray(function(err, items) {
+                res.send(items);
+            });
         });
-    });
+    }    
+    else{
+        res.json({
+            "status": 401,
+            "message": "Invalid credentials"
+          });
+    }
 };
 
 
@@ -56,7 +66,8 @@ exports.authenticate = function(req, res){
             if(result.password==md5(user.password)){
                 res.json({
                     isSuccess: true,
-                    name: result.username
+                    name: result.username,
+                    access_token:"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0MTE5MjcyMDAzNjl9.cuUKFKsf2qhQJHToP-zBmObhMwi84rhnrhH03OdyzSA"
                 })
             }    
             else{

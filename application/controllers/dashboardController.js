@@ -74,7 +74,9 @@ angular.module("researchApp")
 	    	})
 	    }
 	    $scope.populateData = function(){
-    		var dataPromise = $http.get("http://localhost:3000/employees/");
+	    	var dataPromise = $http({method: 'GET', url: 'http://localhost:3000/employees/', headers: {
+			    "X-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0MTE5MjcyMDAzNjl9.cuUKFKsf2qhQJHToP-zBmObhMwi84rhnrhH03OdyzSA"}
+			});
 			dataPromise.then(function(response){
 				$scope.showData = true;				
 				$scope.gridOptions.data = response.data;

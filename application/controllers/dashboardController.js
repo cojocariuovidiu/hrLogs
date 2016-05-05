@@ -1,7 +1,7 @@
 angular.module("researchApp")
 	.controller("dashboardController", dashboardController);
 
-	function dashboardController($scope, $http, $rootScope, utilitiesService){
+	function dashboardController($scope, $http, $rootScope, userService){
 		$scope.gridOptions = {
 		    columnDefs: [
 				{ field: '_id', visible: false, displayName: 'ID' },
@@ -47,6 +47,7 @@ angular.module("researchApp")
 		      // });
 		    }	    
 		};
+		$scope.showData = true;
 		
 		$scope.deleteSelected = function(){
 	      angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
@@ -62,9 +63,22 @@ angular.module("researchApp")
 	      });
 	    }
 
-
-		var dataPromise = $http.get("http://localhost:3000/employees.json");
-		dataPromise.then(function(response){
-			$scope.gridOptions.data = response.data;
-		})
+	    $scope.authenticate = function(){
+	    	var data = {
+             	"username":"manager",
+             	"password":"test@123"
+           	}
+	    	$http.post("http://localhost:3000/authenticate", data).then(function(response){
+	    		userService.setUserObj(response.data);
+	    		$scope.populateData();
+	    	})
+	    }
+	    $scope.populateData = function(){
+    		var dataPromise = $http.get("http://localhost:3000/employees/");
+			dataPromise.then(function(response){
+				$scope.showData = true;				
+				$scope.gridOptions.data = response.data;
+			})
+	    }		
+		$scope.populateData();
 	}

@@ -1,4 +1,5 @@
 var mongo = require('mongodb');
+var md5 = require('md5');
 
 var Server = mongo.Server,
     Db = mongo.Db,
@@ -30,7 +31,6 @@ exports.getAllEmployees = function(req, res) {
 
 exports.deleteEmployee = function(req, res) {
     var id = req.params.id;
-    console.log('Deleting employee: ' + id);
     db.collection('employees', function(err, collection) {
         collection.remove({'_id':new BSON.ObjectID(id)}, {safe:true}, function(err, result) {
             if (err) {
@@ -48,6 +48,25 @@ exports.deleteEmployee = function(req, res) {
 }
 exports.populateDB = function(req, res){
     populateDB();
+}
+exports.authenticate = function(req, res){
+    var user = req.body;
+    db.collection('users', function(err, collection) {
+        collection.findOne({username:user.username}, function(err, result) {
+            if(result.password==md5(user.password)){
+                res.json({
+                    isSuccess: true,
+                    name: result.username
+                })
+            }    
+            else{
+                result.json({
+                    isSuccess: false,
+                    errorMsg:"Authentication failed"
+                })
+            }
+        });
+    });    
 }
 
 var populateDB = function() {
@@ -455,7 +474,16 @@ var populateDB = function() {
             "Work Experience": 1
         }
     ]
+    var users = [
+        {
+            username:"manager",
+            password:"ceb6c970658f31504a901b89dcd3e461"
+        }
+    ]
 
+    db.collection('users', function(err, collection) {
+        collection.insert(users, {safe:true}, function(err, result) {});
+    });
     db.collection('employees', function(err, collection) {
         collection.insert(employees, {safe:true}, function(err, result) {});
     });

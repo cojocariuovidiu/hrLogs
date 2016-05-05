@@ -1,7 +1,10 @@
 <div class="jumbotron">
       <div class="container">
-            <button type="button" class="btn btn-success pull-right" ng-click="deleteSelected()">Delete Selected Rows</button>
+      		<div>
+      			<button class="btn btn-success pull-left" ng-click="authenticate()">Authenticate</button>
+      		</div>
+      		<button type="button" class="btn btn-success pull-right" ng-click="deleteSelected()">Delete Selected Rows</button>
             <br><br>
-      	<div ui-grid="gridOptions" ui-grid-selection ui-grid-exporter ui-grid-pagination class="grid"></div>                  
+      	<div ui-grid="gridOptions" ui-grid-selection ui-grid-exporter ui-grid-pagination class="grid"></div>
       </div>
 </div>
